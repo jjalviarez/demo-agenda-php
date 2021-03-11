@@ -1,0 +1,224 @@
+:root {
+  --primary: #c2185b;
+  --primarydark: rgb(156, 10, 69);
+  --secondary: #ffc107;
+  --primaryfont: "Arial", Helvetica, sans-serif;
+  --secondaryfont: "Poppins", sans-serif;
+}
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: var(--primary);
+  font-family: var(--primaryfont);
+}
+
+.contenedor {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.bg-amarillo {
+  background-color: var(--secondary);
+}
+.bg-blanco {
+  background-color: white;
+}
+
+.shadow {
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+h1,
+h2 {
+  font-family: var(--secondaryfont);
+  text-align: center;
+  margin: 0;
+}
+
+h1 {
+  padding: 20px;
+  color: white;
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+.contenedor-barra {
+  background-color: var(--primarydark);
+}
+
+/*****************  Formulario  **********************/
+
+form {
+  padding: 3rem;
+  margin-top: 2rem;
+}
+
+form legend {
+  font-family: var(--secondaryfont);
+  font-size: 2rem;
+  text-align: center;
+  margin: 0 auto; /*añadida*/
+}
+
+legend span {
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  clear: both;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .campos {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .campo {
+    flex: 0 0 calc(33.3% - 1rem);
+  }
+}
+
+.campo {
+  padding: 0.5rem 0;
+}
+.campo label {
+  font-size: 1.2rem;
+}
+
+.campo input[type="text"],
+.campo input[type="tel"] {
+  width: 100%;
+  border: none;
+  padding: 0.5rem;
+  height: 3rem;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+}
+.enviar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.campo input[type="submit"] {
+  background-color: var(--primary);
+  border: none;
+  color: white;
+  padding: 1rem 4rem;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  transition: background-color 0.2s ease-in-out;
+  flex: 1;
+}
+
+.campo input[type="submit"]:hover {
+  cursor: pointer;
+  background-color: var(--primarydark);
+}
+
+@media (min-width: 768px) {
+  .campo input[type="submit"] {
+    flex: 0 0 auto;
+  }
+}
+
+/******* Liastado de Contactos *****/
+
+.contact {
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+.contenedor-contact {
+  max-width: 800px;
+  margin: 4rem auto 0 auto;
+}
+
+.total-contactos {
+  font-family: var(--secondaryfont);
+  margin: 2rem 0;
+  text-align: center;
+  color: var(--primary);
+  font-size: 2rem;
+}
+.total-contactos span {
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.buscador {
+  width: 100%;
+  height: 4rem;
+  padding: 1rem;
+  border: 1px solid #e1e1e1;
+  margin: 2rem 0;
+
+}
+
+.contenedor-tabla {
+  overflow: scroll;
+}
+
+.listado-contactos {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+
+}
+
+.listado-contactos thead {
+  background-color: var(--primary);
+  color: white;
+  text-transform: uppercase;
+}
+
+.listado-contactos thead th{
+  padding: 1rem 0;
+}
+
+.listado-contactos tbody td{
+  padding: 0.5rem;
+
+}
+
+.listado-contactos tbody td:last-child{
+  text-align: center;
+
+}
+
+.listado-contactos button {
+background-color: transparent!important;
+border: none;
+}
+
+.btn {
+font-size: 2rem;
+text-decoration: none;
+}
+
+.btn-editar {
+  color: var(--secondary);
+}
+
+.btn-borrar {
+  color: var(--primary);
+}
+
+
+
+
