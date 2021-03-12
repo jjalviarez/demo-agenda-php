@@ -6,23 +6,7 @@
 <div class="bg-amarillo contenedor shadow">
   <form id="contato" action="#">
     <legend>Add Contact <span>**All fields are required</span> </legend>
-    <div class="campos">
-      <div class="campo">
-        <label for="name">Name:</label>
-        <input type="text" placeholder="Contact Name" name="name" id="name">
-      </div>
-      <div class="campo">
-        <label for="company">Company:</label>
-        <input type="text" placeholder="Contact Company" company="company" id="company">
-      </div>
-      <div class="campo">
-        <label for="phone">Phone:</label>
-        <input type="tel" placeholder="Phone" phone="phone" id="phone">
-      </div>
-    </div>
-    <div class="campo enviar">
-      <input type="submit" value="Add">
-    </div>
+    <?php include 'includes/layout/formContact.php'; ?>
   </form>
 </div>
 <div class="bg-blanco contenedor shadow contact">
@@ -46,7 +30,7 @@
             <td>Jorge Company</td>
             <td>123456</td>
             <td>
-              <a class="btn-editar btn" href="#">
+              <a class="btn-editar btn" href="editar.php?id=1">
                 <i class="fas fa-pen-square"></i>
               </a>
               <button data-id="1" type="button" class="btn-borrar btn">
@@ -59,7 +43,7 @@
             <td>Jorge Company</td>
             <td>87654</td>
             <td>
-              <a class="btn-editar btn" href="#">
+              <a class="btn-editar btn" href="editar.php?id=2">
                 <i class="fas fa-pen-square"></i>
               </a>
               <button data-id="1" type="button" class="btn-borrar btn">
@@ -72,7 +56,7 @@
             <td>Juan Company</td>
             <td>1245678</td>
             <td>
-              <a class="btn-editar btn" href="#">
+              <a class="btn-editar btn" href="editar.php?id=3">
                 <i class="fas fa-pen-square"></i>
               </a>
               <button data-id="1" type="button" class="btn-borrar btn">
