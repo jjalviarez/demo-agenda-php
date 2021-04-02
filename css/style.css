@@ -43,6 +43,10 @@ font-size: 2rem;
 text-decoration: none;
 }
 
+.btn:hover {
+  cursor: pointer;
+}
+
 .btn-editar {
   color: var(--secondary);
 }
@@ -235,6 +239,24 @@ background-color: transparent!important;
 border: none;
 }
 
-
+.notify {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 1rem 3rem;  
+  opacity: 0;
+  transition:opacity 0.5s ease-in-out;
+}
+.show {
+  opacity: 1;  
+}
+.success {
+  background-color: rgb(179, 241, 117); 
+  color: green;
+}
+.error {
+  background-color: rgb(238, 148, 166); ;
+  color: rgb(163, 0, 33); ;
+}
 
 
