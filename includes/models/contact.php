@@ -35,7 +35,35 @@ switch ($_POST['action']) {
     echo "Your favorite color is red!";
     break;
   case "update":
-    echo "Your favorite color is blue!";
+    require_once('../utils/db.php');
+
+    $name = filter_var($_POST['name'],FILTER_SANITIZE_STRING);
+    $company = filter_var($_POST['company'],FILTER_SANITIZE_STRING);
+    $phone = filter_var($_POST['phone'],FILTER_SANITIZE_STRING);
+    $id = filter_var($_POST['id'],FILTER_SANITIZE_NUMBER_INT);
+    try {
+      $stmt = $conn->prepare("UPDATE contacts SET name = ?, company = ?, phone = ?  WHERE id = ?");
+      $stmt->bind_param("sssi", $name, $company, $phone,$id);
+      $stmt->execute();
+      if($stmt->affected_rows==1) {
+        $res = array(
+          'res' => 'success',
+          'datos' => array (
+            'name' => $name,
+            'company' => $company,
+            'phone' => $phone,            
+            'id' => $stmt->insert_id    
+          )
+        );
+      } 
+
+      $stmt->close();
+      $conn->close();
+    } catch (\Exception $e) {
+      $res = array(
+        'error' =>$e->getMessage()
+    );
+    }
     break;
   case "delete":
     echo "Your favorite color is green!";

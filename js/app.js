@@ -8,7 +8,9 @@ function eventListener() {
   contactForm.addEventListener("submit", readForm);
 
   //botorn eliminat
-  contactList.addEventListener("click", deleteContact);
+  if (contactList) {
+    contactList.addEventListener("click", deleteContact);
+  }
 }
 
 function deleteContact(e) {
@@ -19,16 +21,19 @@ function deleteContact(e) {
       var xhr = new XMLHttpRequest();
 
       // abrirlo
-      xhr.open("GET", `includes/models/contact.php?id=${id}&action=delete`, true);
+      xhr.open(
+        "GET",
+        `includes/models/contact.php?id=${id}&action=delete`,
+        true
+      );
 
       // revisar que cambie
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
           res = JSON.parse(xhr.responseText);
-          if (res.res = 'success') {
+          if ((res.res = "success")) {
             showNotify("Contacto Eliminado", "success"); // se le envia Texto y tipo
             e.target.parentElement.parentElement.parentElement.remove();
-
           } else {
             showNotify("Error al Eliminar", "error"); // se le envia Texto y tipo
           }
@@ -60,6 +65,7 @@ function readForm(e) {
       const id = document.querySelector("#id").value;
       infoContact.append("id", id);
       updateDB(infoContact);
+
     }
   }
 }
@@ -95,27 +101,50 @@ function insertDB(infoContact) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       res = JSON.parse(xhr.responseText);
-      showNotify("Contacto Creado", "success"); // se le envia Texto y tipo
-      document.querySelector("form#contato").reset();
-      const newContact = document.createElement("tr");
-      newContact.innerHTML = `
-        <td>${res.datos.name}</td>
-        <td>${res.datos.company}</td>
-        <td>${res.datos.phone}</td>
-        <td>
-          <a class="btn-editar btn" href="editar.php?id=${res.datos.id}">
-            <i class="fas fa-pen-square"></i>
-          </a>
-          <button data-id="${res.datos.id}" type="button" class="btn-borrar btn">
-            <i class="fas fa-trash-alt"></i>
-          </button>
-        </td>
-      `;
-      contactList.appendChild(newContact);
+      if (res.res === 'success') {
+        showNotify("Contacto Creado", "success"); // se le envia Texto y tipo
+        document.querySelector("form#contato").reset();
+        const newContact = document.createElement("tr");
+        newContact.innerHTML = `
+          <td>${res.datos.name}</td>
+          <td>${res.datos.company}</td>
+          <td>${res.datos.phone}</td>
+          <td>
+            <a class="btn-editar btn" href="editar.php?id=${res.datos.id}">
+              <i class="fas fa-pen-square"></i>
+            </a>
+            <button data-id="${res.datos.id}" type="button" class="btn-borrar btn">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        `;
+        contactList.appendChild(newContact);
+      }
     }
   };
 
   xhr.send(infoContact);
 }
 
-function updateDB(infoContact) {}
+function updateDB(infoContact) {
+  // crearlo
+  var xhr = new XMLHttpRequest();
+
+  // abrirlo
+  xhr.open("POST", "includes/models/contact.php", true);
+
+  // revisar que cambie
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      res = JSON.parse(xhr.responseText);
+      if (res.res === 'success') {
+        showNotify("Contacto Actualizado", "success"); // se le envia Texto y tipo
+      }
+      setTimeout(() => {
+      window.location.href = 'index.php'        
+      }, 3000);
+    }
+  };
+
+  xhr.send(infoContact);
+}
