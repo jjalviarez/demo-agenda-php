@@ -1,4 +1,14 @@
-<?php include 'includes/layout/header.php'; ?>
+<?php
+include 'includes/utils/controler.php';
+include 'includes/layout/header.php';
+$id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
+if (!$id) {
+  die('No es Valido');
+}
+
+$res =  getContact($id)->fetch_assoc();
+
+?>
 
 <div class="contenedor-barra">
   <div class="contenedor barra">
