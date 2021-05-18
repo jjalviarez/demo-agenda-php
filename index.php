@@ -17,7 +17,7 @@ include 'includes/utils/controler.php';
   <div class="contenedor-contact">
     <h2>Contacts</h2>
     <input type="text" id="buscar" class="buscador shadow" placeholder="Buscar">
-    <p class="total-contactos"><span>3</span> Contactos</p>
+    <p class="total-contactos"><span>0</span> Contactos</p>
     <div class="contenedor-tabla">
       <table id="listado-contactos" class="listado-contactos">
         <thead>

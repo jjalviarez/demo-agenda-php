@@ -2,7 +2,6 @@ const contactForm = document.querySelector("#contato");
 const contactList = document.querySelector("#listado-contactos tbody");
 const buscar = document.querySelector("#buscar");
 
-
 eventListener();
 
 function eventListener() {
@@ -12,10 +11,11 @@ function eventListener() {
   //botorn eliminat
   if (contactList) {
     contactList.addEventListener("click", deleteContact);
+    nunContact();
   }
 
   if (buscar) {
-    buscar.addEventListener( "input",buscaContact)
+    buscar.addEventListener("input", buscaContact);
   }
 }
 
@@ -40,6 +40,7 @@ function deleteContact(e) {
           if ((res.res = "success")) {
             showNotify("Contacto Eliminado", "success"); // se le envia Texto y tipo
             e.target.parentElement.parentElement.parentElement.remove();
+            nunContact();
           } else {
             showNotify("Error al Eliminar", "error"); // se le envia Texto y tipo
           }
@@ -49,6 +50,7 @@ function deleteContact(e) {
       xhr.send();
     }
   }
+  nunContact()
 }
 
 function readForm(e) {
@@ -71,7 +73,6 @@ function readForm(e) {
       const id = document.querySelector("#id").value;
       infoContact.append("id", id);
       updateDB(infoContact);
-
     }
   }
 }
@@ -107,7 +108,7 @@ function insertDB(infoContact) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       res = JSON.parse(xhr.responseText);
-      if (res.res === 'success') {
+      if (res.res === "success") {
         showNotify("Contacto Creado", "success"); // se le envia Texto y tipo
         document.querySelector("form#contato").reset();
         const newContact = document.createElement("tr");
@@ -125,6 +126,7 @@ function insertDB(infoContact) {
           </td>
         `;
         contactList.appendChild(newContact);
+        nunContact();
       }
     }
   };
@@ -143,18 +145,17 @@ function updateDB(infoContact) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       res = JSON.parse(xhr.responseText);
-      if (res.res === 'success') {
+      if (res.res === "success") {
         showNotify("Contacto Actualizado", "success"); // se le envia Texto y tipo
       }
       setTimeout(() => {
-      window.location.href = 'index.php'        
+        window.location.href = "index.php";
       }, 3000);
     }
   };
 
   xhr.send(infoContact);
 }
-
 
 function buscaContact(e) {
   /*
@@ -187,18 +188,24 @@ function buscaContact(e) {
       xhr.send();
       */
 
-  const exp = new RegExp(e.target.value, 'i'),
-      registros = document.querySelectorAll('tbody tr');
-      console.log(registros );
-      registros.forEach(registro => {
-        console.log(registro.childNodes[1].textContent.replace(/\s/g,' ').search(exp))
-        if(registro.childNodes[1].textContent.replace(/\s/g,' ').search(exp) == -1){
-          registro.style.display = 'none';
-        }
-        else {
-          registro.style.display = 'table-row';
-        }
-      })
-  
+  const exp = new RegExp(e.target.value, "i"),
+    registros = document.querySelectorAll("tbody tr");
+  //console.log(registros);
+  registros.forEach((registro) => {
+    //console.log(      registro.childNodes[1].textContent.replace(/\s/g, " ").search(exp)    );
+    if (
+      registro.childNodes[1].textContent.replace(/\s/g, " ").search(exp) == -1
+    ) {
+      registro.style.display = "none";
+    } else {
+      registro.style.display = "table-row";
+    }
+  });
+  nunContact()
+}
 
+function nunContact() {
+    const totalContact = document.querySelectorAll('.listado-contactos tbody tr:not([style*="display: none"])').length;
+    const setTotalContact = document.querySelector('.total-contactos span');
+    setTotalContact.textContent= totalContact
 }
