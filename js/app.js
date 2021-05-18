@@ -1,5 +1,7 @@
 const contactForm = document.querySelector("#contato");
 const contactList = document.querySelector("#listado-contactos tbody");
+const buscar = document.querySelector("#buscar");
+
 
 eventListener();
 
@@ -10,6 +12,10 @@ function eventListener() {
   //botorn eliminat
   if (contactList) {
     contactList.addEventListener("click", deleteContact);
+  }
+
+  if (buscar) {
+    buscar.addEventListener( "input",buscaContact)
   }
 }
 
@@ -147,4 +153,52 @@ function updateDB(infoContact) {
   };
 
   xhr.send(infoContact);
+}
+
+
+function buscaContact(e) {
+  /*
+  console.log(e.target.value)
+  busca= e.target.value
+
+      // objeto request
+      var xhr = new XMLHttpRequest();
+
+      // abrirlo
+      xhr.open(
+        "GET",
+        `includes/models/contact.php?buscar=${busca}&action=read`,
+        true
+      );
+
+      // revisar que cambie
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          res = JSON.parse(xhr.responseText);
+          if ((res.res = "success")) {
+            showNotify("Contacto Eliminado", "success"); // se le envia Texto y tipo
+            e.target.parentElement.parentElement.parentElement.remove();
+          } else {
+            showNotify("Error al Eliminar", "error"); // se le envia Texto y tipo
+          }
+        }
+      };
+
+      xhr.send();
+      */
+
+  const exp = new RegExp(e.target.value, 'i'),
+      registros = document.querySelectorAll('tbody tr');
+      console.log(registros );
+      registros.forEach(registro => {
+        console.log(registro.childNodes[1].textContent.replace(/\s/g,' ').search(exp))
+        if(registro.childNodes[1].textContent.replace(/\s/g,' ').search(exp) == -1){
+          registro.style.display = 'none';
+        }
+        else {
+          registro.style.display = 'table-row';
+        }
+      })
+  
+
 }

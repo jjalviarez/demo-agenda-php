@@ -73,7 +73,28 @@ switch ($_POST['action']) {
 
 switch ($_GET['action']) {
   case "read":
-    echo "Your favorite color is red!";
+    require_once('../utils/db.php');
+
+    $buscar = filter_var($_GET['buscar'],FILTER_SANITIZE_STRING);
+    if ($buscar) {
+      try {
+      $stmt = $conn->prepare("SELECT FROM contacts WHERE name like '%?%' ");
+      $stmt->bind_param("s", $buscar);
+      $stmt->execute();
+      if($stmt->affected_rows==1) {
+        $res = array(
+          'res' => 'success'
+        );
+      }
+
+      $stmt->close();
+      $conn->close();
+    } catch (\Exception $e) {
+      $res = array(
+        'error' =>$e->getMessage()
+    );
+    }
+  }
     break;
   case "update":
     echo "Your favorite color is blue!";
